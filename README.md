@@ -9,7 +9,11 @@ In this README you will find further information on how this patch was made and 
 - [HxD](https://mh-nexus.de/en/hxd/), a clean hex editor used to study the save files with.
 
 ## Process
-
+This was the first of the two games on which the extra modes were made available from start.
+Firstly the save data was carefully explored with a hex editor.
+The effects on the game were observed and notes were taken.
+By comparing full savings were all actual slots were deleted in-game and a new clean file it was found out which byte is checked to activate the extra modes.
+By tracing to which RAM offset this was written (0xC000, interestingly enough the very first offset) and then using access breakpoints on it, all the code that checks it was found. It was then decided to fool the checks by replacing the loading of the offset with loading a fixed value (0x03, turned out to be the value for the extra modes). This kept most game code intact, instead of making awkward gaps all over the place.
 
 ## References
 The same references as the other Xtreme 2 project:
